@@ -16,7 +16,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="miraclePillEmoji" translatesAutoresizingMaskIntoConstraints="NO" id="O74-gJ-mcw">
@@ -89,14 +89,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your city..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c0o-LQ-gxw">
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Ou9-Rq-VBL"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STATE:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fN2-ae-csv">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="mV5-tE-gyR"/>
@@ -105,9 +97,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your city..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c0o-LQ-gxw">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Ou9-Rq-VBL"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="next"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wHR-yF-pWZ">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="Xwc-b2-WPL"/>
+                                </constraints>
+                                <state key="normal" title="Choose your State"/>
+                                <connections>
+                                    <action selector="stateButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UUC-g7-R78"/>
+                                </connections>
+                            </button>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="38m-Tk-Lvi">
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="235" id="G8s-Vr-H3g"/>
+                                    <constraint firstAttribute="height" constant="125" id="Jfq-IS-Gmv"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wHR-yF-pWZ" firstAttribute="leading" secondItem="fN2-ae-csv" secondAttribute="leading" id="0RF-d3-Yf8"/>
                             <constraint firstItem="fN2-ae-csv" firstAttribute="trailing" secondItem="c0o-LQ-gxw" secondAttribute="trailing" id="0oi-ve-A3c"/>
                             <constraint firstItem="O74-gJ-mcw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1JJ-xW-Ryc"/>
                             <constraint firstItem="srX-fw-ZVQ" firstAttribute="top" secondItem="58e-lP-bFl" secondAttribute="bottom" constant="8" id="3l2-Ig-WZH"/>
@@ -136,17 +152,25 @@
                             <constraint firstItem="58e-lP-bFl" firstAttribute="leading" secondItem="QHp-BE-Z5A" secondAttribute="leading" id="lJG-9q-zJj"/>
                             <constraint firstItem="srX-fw-ZVQ" firstAttribute="trailing" secondItem="58e-lP-bFl" secondAttribute="trailing" id="lMv-RY-JG3"/>
                             <constraint firstItem="QHp-BE-Z5A" firstAttribute="trailing" secondItem="XQU-E9-wJe" secondAttribute="trailing" id="moH-Wb-73M"/>
+                            <constraint firstItem="wHR-yF-pWZ" firstAttribute="top" secondItem="fN2-ae-csv" secondAttribute="bottom" constant="5" id="oDt-fB-rOu"/>
                             <constraint firstItem="fN2-ae-csv" firstAttribute="top" secondItem="c0o-LQ-gxw" secondAttribute="bottom" constant="8" id="oP4-Zh-10t"/>
                             <constraint firstItem="c0o-LQ-gxw" firstAttribute="trailing" secondItem="YB6-xg-Ky7" secondAttribute="trailing" id="pzA-rr-xaC"/>
+                            <constraint firstItem="wHR-yF-pWZ" firstAttribute="trailing" secondItem="c0o-LQ-gxw" secondAttribute="trailing" id="rb8-E9-pfS"/>
                             <constraint firstItem="c0o-LQ-gxw" firstAttribute="top" secondItem="YB6-xg-Ky7" secondAttribute="bottom" constant="5" id="s6n-sW-MyK"/>
                             <constraint firstItem="jpm-cg-PcB" firstAttribute="leading" secondItem="srX-fw-ZVQ" secondAttribute="leading" id="tCL-es-BXh"/>
+                            <constraint firstItem="38m-Tk-Lvi" firstAttribute="centerX" secondItem="c0o-LQ-gxw" secondAttribute="centerX" id="tp6-7h-9qI"/>
+                            <constraint firstItem="38m-Tk-Lvi" firstAttribute="top" secondItem="wHR-yF-pWZ" secondAttribute="bottom" constant="5" id="v28-wn-uAS"/>
                             <constraint firstItem="c0o-LQ-gxw" firstAttribute="top" secondItem="YB6-xg-Ky7" secondAttribute="bottom" constant="5" id="woe-OC-fUP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="statePicker" destination="38m-Tk-Lvi" id="XAQ-EO-KT1"/>
+                        <outlet property="statePickerButton" destination="wHR-yF-pWZ" id="Ioa-nx-bSK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="135" y="138.38028169014083"/>
+            <point key="canvasLocation" x="133.59999999999999" y="136.28185907046478"/>
         </scene>
     </scenes>
     <resources>
