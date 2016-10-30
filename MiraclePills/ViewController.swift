@@ -8,15 +8,26 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
+class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
-    @IBOutlet weak var statePicker: UIPickerView!
-    @IBOutlet weak var statePickerButton: UIButton!
+    @IBOutlet weak var successImage: UIImageView!
     
-    @IBOutlet weak var countryText: UITextField!
-    @IBOutlet weak var countryLabel: UILabel!
+    @IBOutlet weak var statePickerButton: UIButton!
+    @IBOutlet weak var statePicker: UIPickerView!
+    
+    @IBOutlet weak var nameText: UITextField!
+    @IBOutlet weak var cityText: UITextField!
+    @IBOutlet weak var addressText: UITextField!
     @IBOutlet weak var zipText: UITextField!
+    @IBOutlet weak var countryText: UITextField!
+    
     @IBOutlet weak var zipLabel: UILabel!
+    @IBOutlet weak var countryLabel: UILabel!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    let KEYBOARD_MARGIN: CGFloat = 40.0
+    var keyboardProps: (height: CGFloat, animationDuration: TimeInterval) = (0.0,0)
+    var movingTextFields = [UITextField: CGFloat]()
     
     let states = ["AK - Alaska",
                   "AL - Alabama",
@@ -78,14 +89,70 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         super.viewDidLoad()
         statePicker.dataSource = self
         statePicker.delegate = self
+        
+        nameText.delegate = self
+        cityText.delegate = self
+        addressText.delegate = self
+        countryText.delegate = self
+        zipText.delegate = self
+        
+        // code for moving textfields up when keyboard appears:
+        NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func stateButtonPressed(_ sender: AnyObject) {
+    
+    func keyboardWillShow(_ notification: NSNotification) {
+        var userInfo = notification.userInfo!
+        let keyboardFrame: CGRect = (userInfo[UIKeyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        let keyboardWithMargin = keyboardFrame.size.height + KEYBOARD_MARGIN
+        let animationDuration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! TimeInterval
+        keyboardProps = (keyboardWithMargin, animationDuration)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        let keyboardHeight = keyboardProps.height
+        let animationDuration = keyboardProps.animationDuration
+        let textFieldPosition = textFieldFromBottom(textField: textField)
+        if textFieldPosition < keyboardHeight {
+            let moveDistance =  keyboardHeight - textFieldPosition
+            print("moving up \(moveDistance) px...")
+            movingTextFields[textField] = moveDistance
+            moveTextField(up: true, distance: moveDistance, duration: animationDuration)
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let moveDistance = movingTextFields[textField] {
+            print("moving down \(moveDistance) px...")
+            moveTextField(up: false, distance: 10.0, duration: keyboardProps.animationDuration)
+        }
+    }
+    
+    func moveTextField(up: Bool, distance: CGFloat, duration: TimeInterval) {
+        let moveDirection = distance * (up ? 1 : -1)
+        let point = CGPoint(x: 0.0, y: moveDirection)
+        
+        UIView.animate(withDuration: duration, animations: {
+            self.scrollView.setContentOffset(point, animated: true)
+        })
+    }
+    
+    func textFieldFromBottom(textField: UITextField) -> CGFloat {
+        let textFieldBottomY = textField.frame.origin.y + textField.frame.size.height
+        return view.frame.height - textFieldBottomY
+    }
+    
+    // func for hiding keyboard after pressing 'return':
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        print(textField.text!)
+        self.view.endEditing(true)
+        return false
+    }
+    
+    @IBAction func statePickerButtonPressed(_ sender: AnyObject) {
         countryLabel.isHidden = true
         countryText.isHidden = true
         zipLabel.isHidden = true
@@ -114,7 +181,10 @@ class ViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDele
         zipText.isHidden = false
     }
     
+    @IBAction func buyNowButtonPressed(_ sender: Any) {
+        scrollView.isHidden = true
+        successImage.isHidden = false
+    }
     
-
 }
 
